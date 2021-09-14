@@ -1,1 +1,4 @@
-moves = [[0 for _ in range(100)] for _ in range(100)]
+moves = [1 for _ in range(50 * 50)]
+
+#moves[(rows * 50) + cols]
+
