@@ -14,3 +14,14 @@ PLAYER_NAME = ''  # Change this line!
 
 def final_strategy(score, opponent_score):
     return moves[score][opponent_score]
+
+
+"""
+[
+    [0, 0, 0],
+    [0, 0, 0],
+    [0, 0, 0]
+]
+
+
+"""
