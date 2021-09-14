@@ -1,3 +1,4 @@
+from brain import moves
 """
     This file contains your final_strategy that will be submitted to the contest.
 
@@ -12,4 +13,4 @@ PLAYER_NAME = ''  # Change this line!
 
 
 def final_strategy(score, opponent_score):
-    return 6
+    return moves[score][opponent_score]
