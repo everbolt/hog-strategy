@@ -1,8 +1,4 @@
-"""
-    The strategy here will be compared with your final_strategy when you run
-    python3 compare_strategies.py. It will not be submitted as part of the contest.
-"""
-
+from VERSION_0.brain_0 import moves
 
 def baseline_strategy(score, opponent_score):
-    return 6
+    return moves[min(score, 49)][min(opponent_score, 49)]
