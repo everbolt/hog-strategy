@@ -1,6 +1,6 @@
 from dependencies import take_turn
 import random
-from time_trot_data.data_1 import trot
+from time_trot_data.data_2 import trot
  
 def test_model(first_move=0, use_first_move=False, player_actions=4, opponent_actions=4, player_score_start=0, opponent_score_start=0, player_max_score=50, opponent_max_score=50, test_rounds=100000):
     wins_player = 0
@@ -114,18 +114,27 @@ def train_model_against_opponent(first_move=0, player_actions=4, opponent_action
             take_extra_turn = True
         
         playerScore, opponentScore, player_won = take_turn(playerScore, opponentScore, player_move, max_score=player_max_score)
+        if current_turn != -1: current_turn += 1
 
         if take_extra_turn and not player_won and enable_time_trot: #Implemented only for player atm
+            take_extra_turn = False
             player_move = get_best_turn(player_actions[playerScore][opponentScore])
             playerScore, opponentScore, player_won = take_turn(playerScore, opponentScore, player_move, max_score=player_max_score)
+            current_turn += 1
 
         if not player_won:
             #DETERMINE OPPONENT'S MOVE
             #opponent_move = opponent_actions[opponentScore][playerScore]
             opponent_move = noisy_move(opponent_actions[opponentScore][playerScore])
             #DETERMINE OPPONENT'S MOVE
-
+            if current_turn != -1 and opponent_move == current_turn % 8:
+                take_extra_turn = True
             opponentScore, playerScore, opponent_won = take_turn(opponentScore, playerScore, opponent_move, max_score=opponent_max_score)
+            
+            if take_extra_turn and not opponent_won and enable_time_trot: #Implemented only for player atm
+                opponent_move = noisy_move(opponent_actions[opponentScore][playerScore])
+                opponentScore, playerScore, opponent_won = take_turn(opponentScore, playerScore, opponent_move, max_score=opponent_max_score)
+
 
         #Calculating resulting winrate of action
         if player_won:
@@ -223,7 +232,7 @@ def noisy_move(moves): #Moves is a dict with 11 keys
     if moves[best_move] == 1:
         return best_move
     for i in moves:
-        if i != best_move and moves[i] >= moves[best_move] - 0.15:
+        if i != best_move and moves[i] >= moves[best_move] - 0.20:
             top_moves[i] = moves[i]
     return list(top_moves.keys())[random.randint(0, len(top_moves.keys()) - 1)]
 

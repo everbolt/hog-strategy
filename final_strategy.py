@@ -1,4 +1,4 @@
-from VERSION_5.brain_5 import moves
+from VERSION_6.brain_6 import moves
 
 PLAYER_NAME = 'computer go brrrr'  # Change this line!
 

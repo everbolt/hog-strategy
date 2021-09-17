@@ -1,5 +1,5 @@
 from test_model import optimize_winrate, random_turn, get_best_turn, get_key
-from VERSION_4.brain_4 import moves as opponent_moves
+from VERSION_5.brain_5 import moves as opponent_moves
 #from player_moves_incomp import player_moves_incomplete
 
 file_name = "player_moves_"
@@ -8,11 +8,11 @@ version = 0
 PLAYER_MAX_SCORE = 50
 OPPONENT_MAX_SCORE = 50
 
-USING_INCOMPLETE_FILE = False
-if USING_INCOMPLETE_FILE:
-    player_moves = player_moves_incomplete
-else:
-    player_moves = [[{} for rows in range(PLAYER_MAX_SCORE)] for cols in range(OPPONENT_MAX_SCORE)]
+# USING_INCOMPLETE_FILE = False
+# if USING_INCOMPLETE_FILE:
+#     player_moves = player_moves_incomplete
+
+player_moves = [[{} for rows in range(PLAYER_MAX_SCORE)] for cols in range(OPPONENT_MAX_SCORE)]
 
 #USING DEFAULT OPPONENT MOVES
 #opponent_moves = 0
