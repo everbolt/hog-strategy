@@ -1,0 +1,1 @@
+thorough_modified.py can beat pig but loses to lin. Might be able to increase margin if 0,8 is changed to 0,9

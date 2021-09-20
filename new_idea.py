@@ -1,27 +1,26 @@
 from test_model import optimize_winrate, random_turn, get_best_turn, get_key
-from VERSION_5.brain_5 import moves as opponent_moves
+from VERSION_6.brain_6 import moves as opponent_moves
 #from player_moves_incomp import player_moves_incomplete
 
 file_name = "player_moves_"
 version = 0
 
-PLAYER_MAX_SCORE = 50
-OPPONENT_MAX_SCORE = 50
+MAX_SCORE = 50
 
 # USING_INCOMPLETE_FILE = False
 # if USING_INCOMPLETE_FILE:
 #     player_moves = player_moves_incomplete
 
-player_moves = [[{} for rows in range(PLAYER_MAX_SCORE)] for cols in range(OPPONENT_MAX_SCORE)]
+player_moves = [[{} for rows in range(MAX_SCORE)] for cols in range(MAX_SCORE)]
 
 #USING DEFAULT OPPONENT MOVES
 #opponent_moves = 0
 
 counter = 0
-for current_opponent_score in range(OPPONENT_MAX_SCORE - 1, -1, -1):
-    for current_player_score in range(PLAYER_MAX_SCORE - 1, -1, -1):
-        if len(player_moves[current_player_score][current_opponent_score]) == 0:
-            player_moves = optimize_winrate(player_moves, opponent_moves, current_player_score, current_opponent_score, PLAYER_MAX_SCORE, OPPONENT_MAX_SCORE)
+for long_iter in range(MAX_SCORE - 1, -1, -1):
+    for short_iter in range(long_iter, -1, -1):
+        if len(player_moves[short_iter][long_iter]) == 0:
+            player_moves = optimize_winrate(player_moves, short_iter, long_iter)
         counter += 1
         print("GAMESTATE:", counter)
         #print("Weights:", player_moves[current_player_score][current_opponent_score])
@@ -32,6 +31,7 @@ for current_opponent_score in range(OPPONENT_MAX_SCORE - 1, -1, -1):
     storage_file.close()
 
 #TODO:
-#Add noise into opponent model #4 after implementing it.
-#Noise should take the top X moves that are within an expected winrate of 30% of each other
-#Sudo: Find highest winrate. Then iterate through to check if highest - current <= 0.3
+#VARY THE FOLLOWING
+# Noisy move percent
+# Extent of opponent perfect knowledge
+# Winrate minimum for opponent 1st move to override time trot

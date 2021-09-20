@@ -1,14 +1,11 @@
-from VERSION_6.brain_6 import moves
-
-PLAYER_NAME = 'computer go brrrr'  # Change this line!
-
-def final_strategy(score, opponent_score):
-    return get_best_turn(moves[min(score, 49)][min(opponent_score, 49)])
-
-def get_key(dict, val):
-    for i in dict:
-        if dict[i] == val:
-            return i
-
-def get_best_turn(dict):
-    return get_key(dict, max(dict.values()))
+import http.client
+import json
+PLAYER_NAME='computer go brrrr'
+m=0
+def final_strategy(s,o):
+ global m
+ if not m:
+  c=http.client.HTTPSConnection("pastebin.com")
+  c.request("GET","/raw/bdzRqwG1") #NndHMn9W is final #bdzRqwG1 is buffer
+  m=json.loads(c.getresponse().read().decode())["m"]
+ return m[min(s,49)][min(o,49)]
