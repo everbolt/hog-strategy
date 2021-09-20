@@ -36,11 +36,21 @@ def roll_no_ones(total, n):
         return chance
 
 def roll_at_least(k, n):
-    total, chance = k, 0
+    total, chance = k + 1, 0
     while total <= 6 * n:
         chance += roll_dice(total, n)
         total += 1
     return chance
+
+def best_roll(score_needed):
+    best_roll = 0
+    best_winrate = 0
+    for roll in range(1,11):
+        current = roll_at_least(score_needed, roll)
+        if current > best_winrate:
+            best_winrate = current
+            best_roll = roll
+    return best_roll
 
 #Other game example to 21
 goal = 21
